@@ -41,6 +41,8 @@ import vikram_singh from './vikram_singh.png'
 import appointment_img from './appointment_img.png'
 import verified_icon from './verified_icon.svg'
 import info_icon from './info_icon.svg'
+import about_img from './about_img.png'
+import contact_img from './contact_img.png'
 export const assets = {
     add_icon,
     admin_logo,
@@ -84,7 +86,9 @@ export const assets = {
     vikram_singh,
     appointment_img,
     verified_icon,
-    info_icon
+    info_icon,
+    about_img,
+    contact_img
 }
 
 export const specialityData = [

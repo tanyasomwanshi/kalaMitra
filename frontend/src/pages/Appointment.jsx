@@ -2,15 +2,17 @@ import React, { useContext,useEffect,useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 import { assets } from '../assets/assets'
+import RelatedPotters from '../Components/RelatedPotters'
 
 const Appointment = () => {
   const {potterId} = useParams()
   const {potteryArtists} = useContext(AppContext)
+  const daysOfWeek = ['SUN','MON','TUE','WED','THU','FRI','SAT']
 
   const [potInfo, setPotInfo] = useState(null)
-  const [potSlots,setPotSlots]=useState([])
+  const [potSlots,setPotSlots] = useState([])
   const [slotIndex,setSlotIndex] = useState(0)
-  const [slotTime,setSlotTime]=useState('')
+  const [slotTime,setSlotTime] = useState('')
   const fetchPotInfo = async () => {
     const potInfo= potteryArtists.find(pot =>pot._id === potterId)
     setPotInfo(potInfo)
@@ -18,32 +20,41 @@ const Appointment = () => {
   }
 
   const getAvailableSlots = async () => {
-    setPotSlots([])
+   // setPotSlots([])
 
     //getting current date
     let today = new Date()
+    let newPotSlots = []   //a
     for(let i=0; i<7; i++){
        //getting date with index
        let currentDate = new Date(today)
        currentDate.setDate(today.getDate()+i)
 
-       //setting and time of the date with index
-       let endTime= new Date()
-       endTime.setDate(today.getDate()+1)
+       //setting end time of the date with index
+       //let endTime = new Date()
+       let endTime = new Date(currentDate) //a
+
+       //endTime.setDate(today.getDate()+i)
        endTime.setHours(21,0,0,0)
        
        //setting hours
-       if(today.getDate()===currentDate.getDate()){
-        currentDate.setHours(currentDate.getHours() > 10? currentDate.getHours() + 1 : 10)
+       if(today.getDate() === currentDate.getDate()){
+       // currentDate.setHours(currentDate.getHours() > 10? currentDate.getHours() + 1 : 10)
+        currentDate.setHours(Math.max(currentDate.getHours(), 10))  //a
         currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30:0)
        }else{
-        currentDate.setHours(10)
-        currentDate.setMinutes(0)
+       /* currentDate.setHours(10)
+        currentDate.setMinutes(0) */
+        currentDate.setHours(10, 0, 0, 0) //a
        }
 
        let timeSlots=[]
        while(currentDate < endTime){
-        let formattedTime = currentDate.toLocaleTimeString([],{hour: '2-digit',minutes:'2-digit'})
+        let formattedTime = currentDate.toLocaleTimeString(/*[],{hour: '2-digit',minutes:'2-digit'}*/ 'en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            })
         
         //add slot to array
         timeSlots.push({
@@ -54,8 +65,15 @@ const Appointment = () => {
         currentDate.setMinutes(currentDate.getMinutes()+ 30)
        }
 
-       setPotSlots(prev => ([...prev,timeSlots]))
+        // Remove duplicate times using a Map
+        timeSlots = Array.from(new Map(timeSlots.map(item => [item.time, item])).values());
+
+
+       //setPotSlots(prev => ([...prev,timeSlots]))
+       newPotSlots.push(timeSlots.length > 0 ? timeSlots : [{ datetime: null, time: "No Slots" }]); //a
+      
     }
+    setPotSlots(newPotSlots); //a
   }
 
   useEffect(() => {
@@ -63,12 +81,19 @@ const Appointment = () => {
 
   },[potteryArtists,potterId])
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     getAvailableSlots()
-  },[potInfo])
+  },[potInfo]) */
+
+  useEffect(() => {   //a
+    if (potInfo) {
+      getAvailableSlots();
+    }
+  }, [potInfo]);
+  
 
   useEffect(() => {
-    console.log(potSlots);
+    console.log(potSlots)  
 
   },[potSlots])
 
@@ -101,7 +126,35 @@ const Appointment = () => {
           </p>
         </div>
       </div>
-        
+      {/*-------Booking Slots  ------- */}
+      <div className='sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700'>
+        <p>Booking slots</p>
+        <div className='flex gap-3 items-center w-full overflow-x-scroll mt-4'>
+          {
+            potSlots.length > 0 && potSlots.map((item,index)=>(
+              <div onClick={() => setSlotIndex(index)} className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotIndex === index ? 'bg-primary text-white' : 'border border-gray-200'}`} key={index}>
+                <p>{item.length > 0 && item[0].datetime ? daysOfWeek[item[0].datetime.getDay()] : "N/A"}</p>
+                <p>{item.length > 0 && item[0].datetime ? item[0].datetime.getDate() : "--"}</p> 
+              </div>
+            ))
+          }
+
+        </div>
+        <div className='flex items-center gap-3 w-full overflow-x-scroll mt-4'>
+          {potSlots.length && potSlots[slotIndex].map((item,index)=>(
+            <p onClick={()=>setSlotTime(item.time)} className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${item.time === slotTime ? 'bg-primary text-white' : 'text-gray-400 border border-gray-300'}`} key={index}>
+              {item.time.toLowerCase()}
+
+            </p>
+
+          ))}
+        </div>
+        <button className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'>Book a session</button>
+    
+      </div>
+
+      {/* Listing Related Potters */}
+      <RelatedPotters potterId={potterId} speciality={potInfo.speciality} />
     </div>
   )
 }

@@ -8,7 +8,7 @@ const Footer = () => {
                 {/*-------left section------- */}
                 <div>
                     <img className='mb-5 w-40' src={assets.logo} alt="" />
-                    <p className='w-full md:w-2/3 text-gray-600 leading-6'>KalaMirta – Empowering ceramic artists, one creation at a time. 🌿✨Discover the beauty of handmade pottery and support talented artisans.Join us in preserving the craft through workshops and unique creations.Experience the joy of pottery with KalaMirta.© 2025 KalaMirta. All rights reserved.</p>
+                    <p className='w-full md:w-2/3 text-gray-600 leading-6'>KalaMitra – Empowering ceramic artists, one creation at a time. 🌿✨Discover the beauty of handmade pottery and support talented artisans.Join us in preserving the craft through workshops and unique creations.Experience the joy of pottery with KalaMitra.© 2025 KalaMitra. All rights reserved.</p>
                 </div>
                 {/*-------center section------- */}
                 <div>
