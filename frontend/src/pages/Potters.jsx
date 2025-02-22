@@ -8,6 +8,7 @@ import potteryArtists from '../assets/assets'
 const Potters = () => {
   const { speciality }= useParams()
   const [filterPot,setFilterPot]=useState([])
+  const [showFilter , setShowFilter] = useState(false)
   const navigate= useNavigate()
   const{potteryArtists}= useContext(AppContext)
   const applyFilter = () => {
@@ -25,7 +26,8 @@ const Potters = () => {
     <div>
         <p className='text-gray-600'>Browse through the skilled ceramic artists</p>
         <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
-        <div className='flex flex-col gap-4 text-sm text-gray-600'>
+          <button className={`py-1 px-3 borderrounded text-sm transition-all sm:hidden ${showFilter ? 'bg-primary text-white': ''}`} onClick={()=>setShowFilter(prev => !prev)}>Filters</button>
+        <div className={` flex-col gap-4 text-sm text-gray-600 ${showFilter ? 'flex' : 'hidden sm:flex'}`}>
           <p onClick={()=> speciality === 'Wheel Pottery'? navigate('/potters'): navigate('/potters/Wheel Pottery')} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality === "Wheel Pottery" ?"bg-indigo-100 text-black" : ""}`}>Wheel Pottery</p>
           <p onClick={()=> speciality === 'Clay Sculpting'? navigate('/potters'): navigate('/potters/Clay Sculpting')} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality === "Clay Sculpting" ?"bg-indigo-100 text-black" : ""}`}>Clay Sculpting</p>
           <p onClick={()=> speciality === 'Traditional Terracotta Art'? navigate('/potters'): navigate('/potters/Traditional Terracotta Art')} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality === "Traditional Terracotta Art" ?"bg-indigo-100 text-black" : ""}`}>Traditional Terracotta Art</p>
