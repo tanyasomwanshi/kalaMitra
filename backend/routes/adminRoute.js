@@ -1,11 +1,12 @@
 import express from 'express'
-import { addPotter,loginAdmin } from '../controllers/adminController.js'
+import { addPotter, allPotters, loginAdmin } from '../controllers/adminController.js'
 import upload from '../middlewares/multer.js'
-import authAdmin from '../middlewares/auth.Admin.js'
+import authAdmin from '../middlewares/authAdmin.js'
 
-const adminRouter = express.Router()
+const adminRoute = express.Route()
 
-adminRouter.post('/add-potter',authAdmin,upload.single('image'),addPotter)
-adminRouter.post('/login',loginAdmin)
+adminRoute.post('/add-potter', authAdmin, upload.single('image'), addPotter)
+adminRoute.post('/login', loginAdmin)
+adminRoute.post('/all-potters', authAdmin, allPotters)
 
-export default adminRouter
+export default adminRoute

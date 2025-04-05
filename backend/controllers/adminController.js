@@ -87,4 +87,17 @@ const loginAdmin = async(req,res) => {
     }
 }
 
-export {addPotter,loginAdmin}
+//API to get all potters list for admin panel
+const allPotters = async(req,res) =>{
+    try {
+        const potters = await potterModel.find({}).select('-password')
+        res.json({success:true,potters}) 
+        
+    } catch (error) {
+        console.log(error)
+        res.json({success:false,message:error.message})
+        
+    }
+}
+
+export {addPotter,loginAdmin,allPotters}

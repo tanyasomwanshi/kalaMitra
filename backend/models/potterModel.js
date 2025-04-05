@@ -14,6 +14,6 @@ const potterSchema = new mongoose.Schema({
     slots_booked: { type: Object, default: {} }
 }, { minimize: false })
 
-const potterModel = mongoose.model.potter || mongoose.model('potter', potterSchema)
+const potterModel = mongoose.models.potter || mongoose.model('potter', potterSchema)
 
 export default potterModel
