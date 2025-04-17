@@ -21,4 +21,16 @@ const changeAvailability = async (req,res) => {
 
 }
 
-export {changeAvailability}
+const potterList = async (req,res) => {
+    try {
+        const potteryArtists = await potterModel.find({}).select(['-password','-email'])
+
+        res.json({success:true,potteryArtists})
+    } catch (error) {
+        console.log(error)
+        res.json({success:false,message:error.message})
+        
+    }
+}
+
+export {changeAvailability,potterList}

@@ -46,6 +46,7 @@ import contact_img from './contact_img.png'
 import menu_icon from './menu_icon.svg'
 import cross_icon from './cross_icon.png'
 import logo2 from './logo 2.svg'
+import upload_icon from './upload_icon.png'
 export const assets = {
     add_icon,
     admin_logo,
@@ -94,7 +95,8 @@ export const assets = {
     contact_img,
     menu_icon,
     cross_icon,
-    logo2
+    logo2,
+    upload_icon
 }
 
 export const specialityData = [
