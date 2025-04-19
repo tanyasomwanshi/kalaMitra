@@ -3,6 +3,7 @@ import { assets } from '../assets/assets'
 import { AdminContext } from '../context/AdminContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { PotterContext } from '../context/PotterContext'
 const Login = () => {
 
     const [state,setState] = useState('Admin')
@@ -11,6 +12,7 @@ const Login = () => {
     const [password,setPassword] = useState('')
 
     const {setAToken,backendUrl} = useContext(AdminContext)
+    const {setPToken} = useContext(PotterContext)
 
     const onSubmitHandler = async (event) => {
         event.preventDefault()
@@ -29,6 +31,17 @@ const Login = () => {
                 }
                 
             }else{ 
+                const {data} = await axios.post(backendUrl + '/api/potter/login',{email,password})
+                if (data.success) {
+                    localStorage.setItem('pToken',data.token)
+                    setPToken(data.token);
+                    console.log(data.token)
+                    
+                    
+                }else{
+                    toast.error(data.message)
+                }
+
 
             }
             

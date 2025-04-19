@@ -9,7 +9,7 @@ import upload_area from './upload_area.svg'
 
 import tick_icon from './tick_icon.svg'
 
-import earning_icon from './earning_icon.svg'
+
 import patients_icon from './patients_icon.svg'
 import logo from './logo.svg'
 import profile_pic from './profile_pic.png'
@@ -60,7 +60,7 @@ export const assets = {
     
     tick_icon,
    
-    earning_icon,
+    
     logo,
     profile_pic,
     dropdown_icon,

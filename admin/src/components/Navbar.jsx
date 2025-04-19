@@ -2,9 +2,11 @@ import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
 import { AdminContext } from '../context/AdminContext'
 import { useNavigate } from 'react-router-dom'
+import { PotterContext } from '../context/PotterContext'
 
 const Navbar = () => {
     const {aToken,setAToken} = useContext(AdminContext)
+    const {pToken, setPToken} = useContext(PotterContext)
 
     const navigate=useNavigate()
 
@@ -12,6 +14,8 @@ const Navbar = () => {
         navigate('/')
         aToken && setAToken('')
         aToken && localStorage.removeItem('aToken')
+        pToken && setPToken('')
+        pToken &&  localStorage.removeItem('pToken')
     } 
  
 
