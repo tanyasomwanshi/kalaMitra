@@ -6,9 +6,9 @@ import cancel_icon from './cancel_icon.svg'
 import home_icon from './home_icon.svg'
 import people_icon from './people_icon.svg'
 import upload_area from './upload_area.svg'
-import list_icon from './list_icon.svg'
+
 import tick_icon from './tick_icon.svg'
-import appointments_icon from './appointments_icon.svg'
+
 import earning_icon from './earning_icon.svg'
 import patients_icon from './patients_icon.svg'
 import logo from './logo.svg'
@@ -46,6 +46,10 @@ import contact_img from './contact_img.png'
 import menu_icon from './menu_icon.svg'
 import cross_icon from './cross_icon.png'
 import logo2 from './logo 2.svg'
+import potter_icon from './potter_icon.png'
+import appointments_icon from './appointments_icon.png'
+import customer_icon from './customer_icon.png'
+import list_icon from './list_icon.png'
 export const assets = {
     add_icon,
     admin_logo,
@@ -56,9 +60,9 @@ export const assets = {
     home_icon,
     patients_icon,
     people_icon,
-    list_icon,
+    
     tick_icon,
-    appointments_icon,
+   
     earning_icon,
     logo,
     profile_pic,
@@ -94,7 +98,12 @@ export const assets = {
     contact_img,
     menu_icon,
     cross_icon,
-    logo2
+    logo2,
+    potter_icon,
+    appointments_icon,
+    customer_icon,
+    list_icon
+
 }
 
 export const specialityData = [
